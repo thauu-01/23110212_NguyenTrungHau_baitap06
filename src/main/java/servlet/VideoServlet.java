@@ -124,7 +124,7 @@ public class VideoServlet extends HttpServlet {
             if (path.equals("/video/create")) {
                 String title = req.getParameter("title");
                 String description = req.getParameter("description");
-                String cateIdParam = req.getParameter("cateId"); // Thay đổi từ cate_id thành cateId
+                String cateIdParam = req.getParameter("cateId"); 
                 Part filePart = req.getPart("videoFile");
 
                 if (title == null || title.trim().isEmpty() || cateIdParam == null || filePart == null) {
