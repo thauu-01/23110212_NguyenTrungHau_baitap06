@@ -43,7 +43,7 @@ public class User {
     private List<Category> categories;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Video> videos; // Không dùng CascadeType.ALL để khớp với ON DELETE NO ACTION
+    private List<Video> videos; 
 
     // Constructors
     public User() {}
