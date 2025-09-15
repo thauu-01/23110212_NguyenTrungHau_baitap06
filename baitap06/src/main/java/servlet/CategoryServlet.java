@@ -86,7 +86,7 @@ public class CategoryServlet extends HttpServlet {
             if (cat != null && cat.getUser().getId() == currentUser.getId()) {
                 req.setAttribute("category", cat);
 
-                // File view.jsp nằm trong thư mục webapp/category
+      
                 req.getRequestDispatcher("/category/view.jsp").forward(req, resp);
             } else {
                 resp.sendError(403, "Bạn chỉ có thể xem category của mình");
