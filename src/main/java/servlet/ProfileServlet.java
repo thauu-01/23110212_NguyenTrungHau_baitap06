@@ -49,7 +49,7 @@ public class ProfileServlet extends HttpServlet {
         String phone = req.getParameter("phone");
 
         // Xử lý upload image
-        Part filePart = req.getPart("image");  // Tên field trong form
+        Part filePart = req.getPart("image");  
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         if (!fileName.isEmpty()) {
             // Lưu file vào thư mục
