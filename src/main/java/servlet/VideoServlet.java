@@ -25,7 +25,7 @@ public class VideoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private VideoDAO dao = new VideoDAO();
     private CategoryDAO categoryDAO = new CategoryDAO();
-    private static final String UPLOAD_DIR = "uploads"; // Đúng tên folder trong webapp
+    private static final String UPLOAD_DIR = "uploads"; 
 
     /** Kiểm tra quyền admin */
     private boolean isAdmin(User user) {
@@ -52,7 +52,7 @@ public class VideoServlet extends HttpServlet {
 
         try {
             if (path.equals("/video/create")) {
-                // Hiển thị form thêm video
+          
                 req.setAttribute("categories", categoryDAO.findAll());
                 req.getRequestDispatcher("/video/create.jsp").forward(req, resp);
             } else if (path.equals("/video/view")) {
@@ -85,7 +85,7 @@ public class VideoServlet extends HttpServlet {
                     return;
                 }
 
-                // Xóa file vật lý
+          
                 String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
                 File file = new File(uploadPath + File.separator + video.getVideoFile());
                 if (file.exists()) {
