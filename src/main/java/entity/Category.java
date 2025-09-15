@@ -28,7 +28,7 @@ public class Category {
     private User user; // Owner
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Video> videos; // Dùng CascadeType.ALL để khớp với ON DELETE CASCADE
+    private List<Video> videos; 
 
     // Constructors
     public Category() {}
