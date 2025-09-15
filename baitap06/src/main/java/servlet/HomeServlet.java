@@ -86,7 +86,7 @@ public class HomeServlet extends HttpServlet {
                     return;
             }
 
-            // Đặt danh sách categories và videos vào request
+  
             req.setAttribute("categories", categories);
             req.setAttribute("videos", videos);
             req.getRequestDispatcher(jspPath).forward(req, resp);
