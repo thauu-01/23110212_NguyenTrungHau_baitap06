@@ -2,9 +2,9 @@
 
 Bài tập 06: 
 
-Thực hiện
+Thực hiện:
 
-Hoàn thiện chức năng CRUD trong role admin bằng JPA3.0 cho bảng Category, bảng User, Bảng Video có tìm kiếm
+    Hoàn thiện chức năng CRUD trong role admin bằng JPA3.0 cho bảng Category, bảng User, Bảng Video có tìm kiếm
 
 
 Tên: Nguyễn Trung Hậu
