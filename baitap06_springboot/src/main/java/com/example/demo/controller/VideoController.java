@@ -66,5 +66,32 @@ public class VideoController {
         return "redirect:/admin/home";
     }
 
-    // Thêm @GetMapping("/video/delete"), /video/view tương tự
+    @GetMapping("/video/delete")
+    public String deleteVideo(@RequestParam int videoId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || user.getRoleid() != 3) {
+            return "redirect:/login";
+        }
+        Video video = videoService.findById(videoId); 
+        if (video != null) {
+            File videoFile = new File("src/main/webapp/uploads/" + video.getVideoFile());
+            if (videoFile.exists()) {
+                videoFile.delete();
+            }
+            videoService.delete(videoId);
+        }
+        return "redirect:/admin/home";
+    }
+
+    @GetMapping("/video/view")
+    public String viewVideos(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user == null || user.getRoleid() != 3) {
+            return "redirect:/login";
+        }
+        model.addAttribute("videos", videoService.findAll());
+        return "video/view";
+    }
+
+   
 }

@@ -12,5 +12,6 @@ public interface VideoService {
     Video create(Video video);
     Video update(Video video);
     void delete(int id);
-    List<Video> findAll(); 
+    List<Video> findAll();
+    Video findById(int id); 
 }

@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class VideoServiceImpl implements VideoService {
     @Autowired
@@ -41,6 +43,12 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public List<Video> findAll() {
-        return videoRepository.findAll(); 
+        return videoRepository.findAll();
+    }
+
+    @Override
+    public Video findById(int id) {
+        Optional<Video> video = videoRepository.findById(id);
+        return video.orElse(null); 
     }
 }
