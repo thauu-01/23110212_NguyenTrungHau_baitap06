@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-@SpringBootApplication(scanBasePackages = {"com.example.demo"}) // Điều chỉnh package
+@SpringBootApplication(scanBasePackages = {"com.example.demo"})
 public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);

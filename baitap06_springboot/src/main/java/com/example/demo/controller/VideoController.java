@@ -21,15 +21,32 @@ import java.util.UUID;
 
 @Controller
 public class VideoController {
+
     @Autowired
     private CategoryService categoryService;
+
     @Autowired
     private VideoService videoService;
+
+    /** Kiểm tra quyền admin */
+    private boolean isAdmin(User user) {
+        return user != null && user.getRoleid() == 3;
+    }
+
+    /** Lấy URL home dựa trên roleid */
+    private String getHomeUrl(int roleid) {
+        switch (roleid) {
+            case 1: return "/user/home";
+            case 2: return "/manager/home";
+            case 3: return "/admin/home";
+            default: return "/login";
+        }
+    }
 
     @GetMapping("/video/create")
     public String createVideo(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        if (user == null || user.getRoleid() != 3) {
+        if (!isAdmin(user)) {
             return "redirect:/login";
         }
         model.addAttribute("categories", categoryService.findAll());
@@ -37,11 +54,23 @@ public class VideoController {
     }
 
     @PostMapping("/video/create")
-    public String doCreateVideo(@RequestParam String title, @RequestParam String description, @RequestParam MultipartFile videoFile, @RequestParam int cateId, HttpSession session, Model model) throws IOException {
+    public String doCreateVideo(@RequestParam String title,
+                                @RequestParam String description,
+                                @RequestParam MultipartFile videoFile,
+                                @RequestParam int cateId,
+                                HttpSession session,
+                                Model model) throws IOException {
         User user = (User) session.getAttribute("user");
-        if (user == null || user.getRoleid() != 3) {
+        if (!isAdmin(user)) {
             return "redirect:/login";
         }
+
+        if (title == null || title.trim().isEmpty() || videoFile.isEmpty()) {
+            model.addAttribute("error", "Thiếu thông tin cần thiết");
+            model.addAttribute("categories", categoryService.findAll());
+            return "video/create";
+        }
+
         Category category = categoryService.findById(cateId);
         if (category == null) {
             model.addAttribute("error", "Danh mục không tồn tại");
@@ -63,13 +92,13 @@ public class VideoController {
         video.setUploadDate(new Date());
 
         videoService.create(video);
-        return "redirect:/admin/home";
+        return "redirect:" + getHomeUrl(user.getRoleid());
     }
 
     @GetMapping("/video/delete")
     public String deleteVideo(@RequestParam int videoId, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if (user == null || user.getRoleid() != 3) {
+        if (!isAdmin(user)) {
             return "redirect:/login";
         }
         Video video = videoService.findById(videoId); 
@@ -80,18 +109,16 @@ public class VideoController {
             }
             videoService.delete(videoId);
         }
-        return "redirect:/admin/home";
+        return "redirect:" + getHomeUrl(user.getRoleid());
     }
 
     @GetMapping("/video/view")
     public String viewVideos(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        if (user == null || user.getRoleid() != 3) {
+        if (!isAdmin(user)) {
             return "redirect:/login";
         }
         model.addAttribute("videos", videoService.findAll());
         return "video/view";
     }
-
-   
 }

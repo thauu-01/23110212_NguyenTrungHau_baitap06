@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
+
     @Autowired
     private CategoryService categoryService;
 

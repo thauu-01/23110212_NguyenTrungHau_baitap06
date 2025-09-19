@@ -26,10 +26,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private String getRole(int roleid) {
         switch (roleid) {
-            case 1: return "USER";
-            case 2: return "MANAGER";
-            case 3: return "ADMIN";
-            default: return "USER";
+            case 1: return "ROLE_USER";
+            case 2: return "ROLE_MANAGER";
+            case 3: return "ROLE_ADMIN";
+            default: return "ROLE_USER";
         }
     }
 }

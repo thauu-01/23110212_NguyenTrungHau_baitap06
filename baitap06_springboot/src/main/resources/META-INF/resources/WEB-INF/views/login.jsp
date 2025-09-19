@@ -47,6 +47,11 @@
             text-align: center;
             margin-bottom: 10px;
         }
+        .success {
+            color: green;
+            text-align: center;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -55,8 +60,11 @@
         
         <!-- Form login, action luôn trỏ về servlet /login -->
         <form action="${pageContext.request.contextPath}/login" method="post">
-            <c:if test="${not empty error}">
-                <div class="error">${error}</div>
+            <c:if test="${not empty param.error}">
+                <div class="error">Tên đăng nhập hoặc mật khẩu không đúng!</div>
+            </c:if>
+            <c:if test="${not empty param.logout}">
+                <div class="success">Bạn đã đăng xuất thành công.</div>
             </c:if>
             
             <div class="form-group">
@@ -74,6 +82,8 @@
                 <label class="form-check-label" for="remember">Nhớ mật khẩu</label>
             </div>
             
+            <!-- Nếu bật CSRF, thêm dòng sau -->
+            <!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> -->
             <button type="submit" class="btn btn-primary">Đăng nhập</button>
         </form>
     </div>
